@@ -1,26 +1,35 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+var express = require('express');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var config = require('./config');
 
-const app = express();
-const router = express.Router();
+var app = express();
+var router = express.Router();
 
-//conexão banco
-mongoose.connect('mongodb://naraku:thcatim12@ds133601.mlab.com:33601/ndstr');
+//conexão com o banco de dados
+mongoose.connect(config.connectionString, {useNewUrlParser: true}); // Talvez surga problemas com a conexão com o banco. Tente usar o banco na máquina local.
 
-// carrega os models
-const Product = require('./models/product');
+// carregamento dos models
+var Product = require('./models/product');
+var Customer = require('./models/customer');
+var Order = require('./models/order');
 
 //rotas
-const indexRoute = require('./routes/indexRoute');
-const productsRoute = require('./routes/productsRoute');
+var indexRoute = require('./routes/indexRoute');
+var productsRoute = require('./routes/productsRoute');
+var customerRoute = require('./routes/customerRoute');
+var orderRoute = require('./routes/orderRoute');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use('/',indexRoute);
+app.use('/', indexRoute);
 app.use('/products', productsRoute);
+app.use('/customers', customerRoute);
+app.use('/orders', orderRoute);
 
 module.exports = app;

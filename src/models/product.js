@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const schema = new Schema({
+var schema = new Schema({
     title: {
         type: String,
         required: true,
@@ -14,15 +14,15 @@ const schema = new Schema({
         index: true,
         unique: true,
     },
-    description:{
+    description: {
         type: String,
-        required: true      
+        required: true
     },
-    price:{
+    price: {
         type: Number,
         required: true
     },
-    active:{
+    active: {
         type: Boolean,
         required: true,
         default: true

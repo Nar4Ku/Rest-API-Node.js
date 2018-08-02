@@ -1,9 +1,10 @@
+// Lista de erros
 let errors = [];
-
+// função que consulta os erros
 function ValidationContract() {
     errors = [];
 }
-
+//métodos 
 ValidationContract.prototype.isRequired = (value, message) => {
     if (!value || value.length <= 0)
         errors.push({ message: message });
@@ -29,15 +30,15 @@ ValidationContract.prototype.isEmail = (value, message) => {
     if (!reg.test(value))
         errors.push({ message: message });
 }
-
-ValidationContract.prototype.errors = () => { 
-    return errors; 
+//lista de erros
+ValidationContract.prototype.errors = () => {
+    return errors;
 }
-
+//clear
 ValidationContract.prototype.clear = () => {
     errors = [];
 }
-
+//validador 
 ValidationContract.prototype.isValid = () => {
     return errors.length == 0;
 }
